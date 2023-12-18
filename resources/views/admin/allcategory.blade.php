@@ -10,7 +10,7 @@ All Category > E-Hut
                 <h5 class="card-header">Available Categories</h5>
 
                 @if(session()->has('message'))
-                    <div alert="alert-success">
+                    <div class=" alert alert-success">
                         {{ session()-> get('message')}}
                     </div>
                 @endif
