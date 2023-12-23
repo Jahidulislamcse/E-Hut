@@ -53,7 +53,7 @@
                         <ul>
 
                            <li><a href="#">Best Sellers</a></li>
-                           <li><a href="{{route('category')}}">Gift Ideas</a></li>
+                           <li><a href="">Gift Ideas</a></li>
                            <li><a href="{{route('new_release')}}">New Releases</a></li>
                            <li><a href="{{route('todays_deal')}}">Today's Deals</a></li>
                            <li><a href="{{route('customer_service')}}">Customer Service</a></li>
@@ -87,7 +87,7 @@
                      @endphp
 
                      @foreach($categories as $category)
-                     <a href="fashion.html">{{$category->category_name}}</a>
+                     <a href="{{ route('category',[$category->id, $category->slug]) }}">{{$category->category_name}}</a>
                      @endforeach
 
                   </div>
