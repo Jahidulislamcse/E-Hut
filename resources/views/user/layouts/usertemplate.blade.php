@@ -81,7 +81,7 @@
                <div class="containt_main">
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index.html">Home</a>
+                     <a href="{{route('homepage')}}">Home</a>
                      @php
                         $categories = App\Models\Category::latest()->get();
                      @endphp
@@ -97,7 +97,7 @@
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach($categories as $category)
-                        <a class="dropdown-item" href="#">{{$category->category_name}}</a>
+                        <a class="dropdown-item" href="{{ route('category',[$category->id, $category->slug]) }}">{{$category->category_name}}</a>
                         @endforeach
                      </div>
                   </div>
@@ -153,7 +153,6 @@
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
-            <div class="footer_logo"><a href="index.html"><img src="{{ asset('home/images/footer-logo.png') }}"></a></div>
             <div class="input_bt">
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
