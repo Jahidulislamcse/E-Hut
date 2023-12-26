@@ -31,8 +31,16 @@ Single Product > E-Hut
                 </div>
 
                 <div class="btn_main">
-                    <div class="buy_bt"><a href="">Buy Now</a></div>
-                    <div class="btn btn-warning"><a href="">Add to Cart</a></div>
+                    <form action="{{route('add_product_to_cart', $product->id)}}" method="POST">
+                        @csrf
+                        <input type="hidden" value="{{$product->id}}" name="product_id">
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input class="form-control" type="number" min='1' max="{{$product->quantity}}" placeholder="0" name="quantity">
+                        </div>
+                        <br>
+                        <input class="btn btn-warning" type="submit" value="Add to Cart">
+                    </form>
                 </div>
 
             </div>
@@ -53,7 +61,11 @@ Single Product > E-Hut
                                         <p class="price_text">Price  <span style="color: #262626;">{{$product->price}}</span></p>
                                         <div class="tshirt_img"><img src="{{ asset($product->product_img) }}"></div>
                                         <div class="btn_main">
-                                            <div class="buy_bt"><a href="">Buy Now</a></div>
+                                            <form action="{{route('add_product_to_cart', $product->id)}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" value="{{$product->id}}" name="product_id">
+                                                <input class="btn btn-warning" type="submit" value="Buy Now">
+                                            </form>
                                             <div class="seemore_bt"><a href="{{route('single_product',[$product->id, $product->slug])}}">See More</a></div>
                                         </div>
                                     </div>

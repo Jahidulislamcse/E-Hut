@@ -51,7 +51,6 @@
                   <div class="col-sm-12">
                      <div class="custom_menu">
                         <ul>
-
                            <li><a href="#">Best Sellers</a></li>
                            <li><a href="">Gift Ideas</a></li>
                            <li><a href="{{route('new_release')}}">New Releases</a></li>
@@ -69,7 +68,9 @@
             <div class="container">
                <div class="row">
                   <div class="col-sm-12">
-                     <div class="logo"><a href="index.html"><img src="{{ asset('home/images/logo.png') }}"></a></div>
+                     <div class="logo">
+                        <h1 style="font-size: xxx-large; font-weight:900; color:white; font-family:cursive ">E-Hut</h1>
+                     </div>
                   </div>
                </div>
             </div>

@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    public function Register(){
+        return view('user.register');
+    }
+
+    public function PendingOrders(){
+        return view('user.pendingorderss');
+    }
+
+    public function History(){
+        return view('user.history');
+    }
+
     public function Category($id){
         $category = Category::findOrFail($id);
         $products = Product::where('product_category_id', $id)->latest()->get();
@@ -22,6 +34,9 @@ class ClientController extends Controller
     }
     public function AddToCart(){
         return view('user.add_to_cart');
+    }
+    public function AddProductToCart(){
+        return view('user.add_product_to_cart');
     }
     public function Checkout(){
         return view('user.checkout');

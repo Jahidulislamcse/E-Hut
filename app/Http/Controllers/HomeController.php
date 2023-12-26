@@ -11,4 +11,8 @@ class HomeController extends Controller
         $allproducts = Product::latest()->get();
         return view('user.layouts.home', compact('allproducts'));
     }
+
+    public function Dashboard(){
+        return view('user.layouts.home');
+    }
 }

@@ -14,22 +14,30 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/', 'Index')->name('homepage');
+    Route::get('/dashboard', 'Dashboard')->name('homepage');
 });
+
 
 Route::controller(ClientController::class)->group(function(){
+    Route::get('/register', 'Register')->name('register');
     Route::get('/category/{id}/{slug}', 'Category')->name('category');
     Route::get('/product-details/{id}/{slug}', 'SingleProduct')->name('single_product');
-    Route::get('/add-to-cart', 'AddToCart')->name('add_to_cart');
-    Route::get('/checkout', 'Checkout')->name('checkout');
-    Route::get('/user-profile', 'UserProfile')->name('user_profile');
     Route::get('/new-release', 'NewRelease')->name('new_release');
-    Route::get('/todays-deal', 'TodaysDeal')->name('todays_deal');
-    Route::get('/customer-service', 'CustomerService')->name('customer_service');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'role:admin'])->group(function(){
+    Route::controller(ClientController::class)->group(function(){
+        Route::get('/add-to-cart', 'AddToCart')->name('add_to_cart');
+        Route::post('/add-product-to-cart/{id}', 'AddProductToCart')->name('add_product_to_cart');
+        Route::get('/checkout', 'Checkout')->name('checkout');
+        Route::get('/customer-service', 'CustomerService')->name('customer_service');
+        Route::get('/todays-deal', 'TodaysDeal')->name('todays_deal');
+        Route::get('/user-profile', 'UserProfile')->name('user_profile');
+        Route::get('/user-profile/pending-orders', 'PendingOrders')->name('pendingorders');
+        Route::get('/user-profile/history', 'History')->name('history');
+    });
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/admin/dashboard', 'Index')->name('admindashboard');
     });
