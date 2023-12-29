@@ -1,9 +1,7 @@
-
-
 @extends('user.layouts.usertemplate');
 
 @section('page_title')
-Add To Cart > E-Hut
+Order Summery > E-Hut
 @endsection
 
 @section('main-content')
@@ -12,7 +10,21 @@ Add To Cart > E-Hut
             {{ session()-> get('message')}}
         </div>
     @endif
-    <div class="col-12">
+
+<div class="row">
+    <div class="col-6">
+        <div class="box_main">
+            Delivery Information:
+                <p>District: {{$shipping_info->district}}</p>
+                <p>Upozila: {{$shipping_info->upozila}}</p>
+                <p>Area: {{$shipping_info->area}}</p>
+                <p>Road: {{$shipping_info->road}}</p>
+                <p>House: {{$shipping_info->house}}</p>
+                <p>Phone Number: {{$shipping_info->phone_number}}</p>
+        </div>
+    </div>
+
+    <div class="col-6">
         <div class="box_main">
             <div class="table-responsive">
                 <table class="table">
@@ -21,7 +33,6 @@ Add To Cart > E-Hut
                         <th>Image</th>
                         <th>Quantity</th>
                         <th>Price</th>
-                        <th>Action</th>
                     </tr>
 
                     @php
@@ -39,25 +50,31 @@ Add To Cart > E-Hut
                             <td><img src="{{ asset($product_image)}}" style="height:50px"></td>
                             <td>{{$item->quantity}}</td>
                             <td>{{$item->price}}</td>
-                            <td><a href="{{route('removefromcart', $item->id)}}" class="btn btn-warning">Remove</a></td>
                         </tr>
+
                         @php
                             $total = $total + $item->price;
                         @endphp
 
                     @endforeach
+
                     <tr>
                             <td></td>
-                            <td></td>
-                            @if($total >0 )
                             <td>Total</td>
                             <td>{{$total}}</td>
-                            <td><a href="{{route('checkout')}}" class="btn btn-primary">Checkout</a></td>
-                            @endif
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><a href="" class="btn btn-primary">Confirm</a></td>
                     </tr>
 
                 </table>
             </div>
         </div>
     </div>
-    @endsection
+</div>
+
+
+@endsection

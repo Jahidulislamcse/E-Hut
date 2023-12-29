@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -25,16 +24,20 @@ Route::controller(ClientController::class)->group(function(){
     Route::get('/new-release', 'NewRelease')->name('new_release');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function(){
+Route::middleware('auth')->group(function(){
     Route::controller(ClientController::class)->group(function(){
         Route::get('/add-to-cart', 'AddToCart')->name('add_to_cart');
         Route::post('/add-product-to-cart/{id}', 'AddProductToCart')->name('add_product_to_cart');
         Route::get('/checkout', 'Checkout')->name('checkout');
+        Route::post('/add-shipping-info', 'AddShippingInfo')->name('addshippinginfo');
+        Route::get('/ordersummery', 'Ordersummery')->name('ordersummery');
         Route::get('/customer-service', 'CustomerService')->name('customer_service');
         Route::get('/todays-deal', 'TodaysDeal')->name('todays_deal');
         Route::get('/user-profile', 'UserProfile')->name('user_profile');
         Route::get('/user-profile/pending-orders', 'PendingOrders')->name('pendingorders');
         Route::get('/user-profile/history', 'History')->name('history');
+        Route::get('/remove-from-cart/{id}', 'RemoveFromCart')->name('removefromcart');
+
     });
 });
 

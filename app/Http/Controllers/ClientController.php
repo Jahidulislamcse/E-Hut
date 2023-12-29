@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ShippingInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -33,16 +36,51 @@ class ClientController extends Controller
         return view('user.single_product', compact('product','allproducts', 'relatedproducts'));
     }
     public function AddToCart(){
-        return view('user.add_to_cart');
+        $user = Auth::id();
+        $cart_items = Cart::where('user_id', $user)->get();
+        return view('user.add_to_cart', compact('cart_items'));
     }
-    public function AddProductToCart(){
-        return view('user.add_product_to_cart');
+    public function AddProductToCart(Request $request){
+        $product_price = $request->price;
+        $product_quantity = $request->quantity;
+        $price = $product_price * $product_quantity;
+
+        Cart::insert([
+            'product_id' => $request->product_id,
+            'user_id' => Auth::id(),
+            'quantity' => $product_quantity,
+            'price' => $price
+        ]);
+
+        return redirect()->route('add_to_cart')->with('message','Product added to add to cart success with price' );
     }
     public function Checkout(){
         return view('user.checkout');
     }
+
+    public function AddShippingInfo(Request $request){
+
+        ShippingInfo::insert([
+            'user_id' => Auth::id(),
+            'phone_number' => $request->phone_number,
+            'district' => $request->district,
+            'upozila' => $request->upozila,
+            'area' => $request->area,
+            'road' => $request->road,
+            'house_number' => $request->house_number,
+        ]);
+
+        return redirect()->route('ordersummery')->with('message','shipping address stored successfully' );
+    }
+
     public function UserProfile(){
         return view('user.user_profile');
+    }
+    public function Ordersummery(){
+        $user = Auth::id();
+        $cart_items = Cart::where('user_id', $user)->get();
+        $shipping_info = ShippingInfo::where('user_id', $user)->first();
+        return view('user.ordersummery', compact('cart_items' , 'shipping_info'));
     }
     public function NewRelease(){
         return view('user.new_release');
@@ -52,5 +90,10 @@ class ClientController extends Controller
     }
     public function CustomerService(){
         return view('user.customer_service');
+    }
+
+    public function RemoveFromCart($id){
+       Cart::findOrFail($id)->delete();
+        return redirect()->route('add_to_cart')->with('message',' Item Removed From Cart Successfully');
     }
 }
