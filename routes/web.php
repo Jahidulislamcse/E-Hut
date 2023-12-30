@@ -91,6 +91,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/admin/pending-order', 'Index')->name('pendingorder');
         Route::get('/admin/completed-order', 'CompletedOrder')->name('completedorder');
         Route::get('/admin/canceled-order', 'CanceledOrder')->name('canceledorder');
+        Route::get('/admin/deliver-order/{id}', 'Deliver')->name('deliver');
     });
 });
 

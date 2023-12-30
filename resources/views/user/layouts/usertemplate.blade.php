@@ -51,7 +51,7 @@
                   <div class="col-sm-12">
                      <div class="custom_menu">
                         <ul>
-                           <li><a href="#">Best Sellers</a></li>
+                           <li><a href="{{route('user_profile')}}">Profile</a></li>
                            <li><a href="">Gift Ideas</a></li>
                            <li><a href="{{route('new_release')}}">New Releases</a></li>
                            <li><a href="{{route('todays_deal')}}">Today's Deals</a></li>

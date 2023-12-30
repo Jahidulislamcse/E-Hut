@@ -110,7 +110,8 @@ class ClientController extends Controller
     }
 
     public function PendingOrders(){
-        $pending_orders = Order::where('status', 'pending')->latest()->get();
+        $user = Auth::id();
+        $pending_orders = Order::where([['status', 'pending'],['user_id', $user]])->latest()->get();
         return view('user.pendingorderss', compact('pending_orders'));
     }
 
