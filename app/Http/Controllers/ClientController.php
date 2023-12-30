@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ShippingInfo;
 use Illuminate\Http\Request;
@@ -15,9 +16,7 @@ class ClientController extends Controller
         return view('user.register');
     }
 
-    public function PendingOrders(){
-        return view('user.pendingorderss');
-    }
+
 
     public function History(){
         return view('user.history');
@@ -82,6 +81,39 @@ class ClientController extends Controller
         $shipping_info = ShippingInfo::where('user_id', $user)->first();
         return view('user.ordersummery', compact('cart_items' , 'shipping_info'));
     }
+
+    public function PlaceOrder(){
+        $user = Auth::id();
+        $cart_items = Cart::where('user_id', $user)->get();
+        $shipping_info = ShippingInfo::where('user_id', $user)->first();
+
+        foreach($cart_items as $item){
+            Order::insert([
+                'user_id' => $user,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+                'total_price' => $item->price,
+                'phone_number' => $shipping_info->phone_number,
+                'district' => $shipping_info->district,
+                'upozila' => $shipping_info->upozila,
+                'area' => $shipping_info->area,
+                'road' => $shipping_info->road,
+                'house' => $shipping_info->house_number,
+            ]);
+            $id = $item->id;
+            Cart::findOrFail($id)->delete();
+        }
+
+        ShippingInfo::where('user_id', $user)->delete();
+
+        return redirect()->route('pendingorders')->with('message', 'Order has been placed successfully');
+    }
+
+    public function PendingOrders(){
+        $pending_orders = Order::where('status', 'pending')->latest()->get();
+        return view('user.pendingorderss', compact('pending_orders'));
+    }
+
     public function NewRelease(){
         return view('user.new_release');
     }
@@ -96,4 +128,6 @@ class ClientController extends Controller
        Cart::findOrFail($id)->delete();
         return redirect()->route('add_to_cart')->with('message',' Item Removed From Cart Successfully');
     }
+
 }
+

@@ -63,17 +63,16 @@ Order Summery > E-Hut
                             <td>Total</td>
                             <td>{{$total}}</td>
                     </tr>
-
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><a href="" class="btn btn-primary">Confirm</a></td>
-                    </tr>
-
                 </table>
             </div>
         </div>
     </div>
+    <form action="{{route('placeorder')}}" method="POST">
+        @csrf
+
+        <input type="submit" value="Confirm Order" class="btn btn-primary mr-3">
+        <input type="submit" value="Cancel Order" class="btn btn-danger">
+    </form>
 </div>
 
 

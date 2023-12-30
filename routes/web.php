@@ -34,9 +34,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/customer-service', 'CustomerService')->name('customer_service');
         Route::get('/todays-deal', 'TodaysDeal')->name('todays_deal');
         Route::get('/user-profile', 'UserProfile')->name('user_profile');
-        Route::get('/user-profile/pending-orders', 'PendingOrders')->name('pendingorders');
+        Route::get('/pending-orders', 'PendingOrders')->name('pendingorders');
         Route::get('/user-profile/history', 'History')->name('history');
         Route::get('/remove-from-cart/{id}', 'RemoveFromCart')->name('removefromcart');
+        Route::post('/place-order', 'PlaceOrder')->name('placeorder');
+
 
     });
 });
