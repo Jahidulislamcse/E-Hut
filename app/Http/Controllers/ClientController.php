@@ -22,10 +22,18 @@ class ClientController extends Controller
         return view('user.history');
     }
 
-    public function Category($id){
+    public function Category(Request $request, $id){
+        $search = $request['search'] ?? "";
         $category = Category::findOrFail($id);
-        $products = Product::where('product_category_id', $id)->latest()->get();
-        return view('user.category', compact('category', 'products'));
+
+        if($search != ""){
+            $products = Product::where([['product_category_id', $id],['product_name', 'LIKE', "%$search%"]])->get();
+        }
+        else{
+            $products = Product::where('product_category_id', $id)->latest()->get();
+        }
+
+        return view('user.category', compact('category', 'products', 'search'));
     }
     public function SingleProduct($id, $slug){
         $allproducts = Product::latest()->get();

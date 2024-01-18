@@ -5,8 +5,18 @@ Category > E-Hut
 @endsection
 
 @section('main-content')
-<h1>{{$category->category_name}} - ({{$category->product_count}})</h1>
+<h1>Total Result - {{$category->product_count}}</h1>
 <div class="fashion_section">
+    <form action="" class="col-12">
+            <div class="input-group">
+            <input type="search" name="search" class="form-control" value="{{$search}}" placeholder="Search {{$category->category_name}}">
+            <div class="input-group-append">
+                <button class="btn btn-secondary" style="background-color: #f26522; border-color:#f26522 ">
+                <i class="fa fa-search"></i>
+                </button>
+            </div>
+            </div>
+    </form>
          <div id="main_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                <div class="carousel-item active">

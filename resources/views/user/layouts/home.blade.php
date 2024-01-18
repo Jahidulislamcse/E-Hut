@@ -3,6 +3,17 @@
 @section('main-content')
 <!-- fashion section start -->
 <div class="fashion_section">
+
+    <form action="" class="col-9">
+        <div class="input-group">
+            <input type="search" name="search" class="form-control" value="{{$search}}" placeholder="Search product">
+            <div class="input-group-append">
+                <button class="btn btn-secondary" style="background-color: #f26522; border-color:#f26522 ">
+                <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
          <div id="main_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                <div class="carousel-item active">
@@ -29,6 +40,7 @@
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
                      </div>
                   </div>
@@ -116,7 +128,7 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-sm-4">
+                           <div class="col-12">
                               <div class="box_main">
                                  <h4 class="shirt_text">Computers</h4>
                                  <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
