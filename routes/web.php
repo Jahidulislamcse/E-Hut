@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/', 'Index')->name('homepage');
-    Route::get('/dashboard', 'Dashboard')->name('homepage');
 });
 
 

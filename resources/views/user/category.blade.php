@@ -7,7 +7,7 @@ Category > E-Hut
 @section('main-content')
 <h1>Total Result - {{$category->product_count}}</h1>
 <div class="fashion_section">
-    <form action="" class="col-12">
+    <form action="" class="col-7" style="margin: auto;">
             <div class="input-group">
             <input type="search" name="search" class="form-control" value="{{$search}}" placeholder="Search {{$category->category_name}}">
             <div class="input-group-append">

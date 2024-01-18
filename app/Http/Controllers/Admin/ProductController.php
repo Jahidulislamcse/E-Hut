@@ -10,9 +10,16 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function Index(){
-        $products = Product::latest()->get();
-        return view('admin.allproduct', compact('products'));
+    public function Index(Request $request){
+        $search = $request['search'] ?? "";
+
+        if($search != ""){
+            $products = Product::where('product_name', 'LIKE', "%$search%")->get();
+        }
+        else{
+            $products = Product::all();
+        }
+        return view('admin.allproduct', compact('products', 'search'));
     }
 
     public function AddProduct(){

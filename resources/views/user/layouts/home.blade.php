@@ -4,7 +4,7 @@
 <!-- fashion section start -->
 <div class="fashion_section">
 
-    <form action="" class="col-9">
+    <form action="" class="col-5" style="margin-left: auto;">
         <div class="input-group">
             <input type="search" name="search" class="form-control" value="{{$search}}" placeholder="Search product">
             <div class="input-group-append">
@@ -18,7 +18,7 @@
             <div class="carousel-inner">
                <div class="carousel-item active">
                   <div class="container">
-                     <h1 class="fashion_taital">All Products</h1>
+                     <h1 class="fashion_taital">Products</h1>
                      <div class="fashion_section_2">
                         <div class="row">
                             @foreach($allproducts as $product)
